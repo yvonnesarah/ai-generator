@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Quotes Generator</title>
+
+    <link rel="stylesheet" href="assets/css/styles.css" />
+
+    <script src="https://unpkg.com/typewriter-effect@latest/dist/core.js"></script>
+    <script src="https://unpkg.com/axios@1.6.7/dist/axios.min.js"></script>
+  </head>
+
+  <body>
+
+  <div class="background"></div>
+
+  <div class="container">
+
+    <header class="header">
+      <h1>AI Quotes Generator</h1>
+      <p class="subtitle">Type a topic and get an AI-generated quote ✨</p>
+    </header>
+
+    <main class="card">
+
+      <form id="form" class="form">
+        <input
+          class="search-input"
+          type="text"
+          placeholder="Try: Love, Success, Music..."
+          autocomplete="off"
+          required
+        />
+        <button type="submit" class="submit-button">
+          Generate
+        </button>
+      </form>
+
+      <div class="hint">Examples: Love • Friendship • Motivation • Family</div>
+
+      <div class="quote hidden"></div>
+
+    </main>
+
+    <footer class="footer">
+      Coded by 
+      <a href="https://github.com/yvonnesarah" target="_blank">Yvonne Adedeji</a>
+      • Open source on 
+      <a href="https://github.com/yvonnesarah/ai-generator" target="_blank">GitHub</a>
+      • Hosted on
+      <a href="https://ya-ai-quote-generator.netlify.app/" target="_blank">Netlify</a>
+    </footer>
+
+  </div>
+
+  <script src="assets/js/script.js"></script>
+</body>
+</html>
