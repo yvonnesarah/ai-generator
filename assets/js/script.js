@@ -5,7 +5,26 @@ function displayquote(response) {
     strings: response.data.answer, // Set the generated quote as the string
     autoStart: true, // Automatically start typing
     cursor: "", // No cursor displayed
-    delay: 1.5, // Delay between characters (in milliseconds)
+    delay: 15, // Delay between characters (in milliseconds)
+  });
+}
+
+function displayquote(response) {
+  let quoteText = response.data.answer;
+
+  // Fallback if AI returns Unknown/Anonymous
+  if (
+    quoteText.toLowerCase().includes("unknown") ||
+    quoteText.toLowerCase().includes("anonymous")
+  ) {
+    quoteText = quoteText.replace(/unknown|anonymous/i, "AI Thinker");
+  }
+
+  new Typewriter(".quote", {
+    strings: quoteText,
+    autoStart: true,
+    cursor: "",
+    delay: 15,
   });
 }
 
@@ -23,8 +42,7 @@ function handleSearch(event) {
   let prompt = `User instruction:Generate a quote on ${searchInput.value}`;
   
   // Provide context for the AI, asking it to generate a concise and clear quote
-  let context =
-    "You are an expert in writing quotes. Make sure to give a concise and clear quote. Do not include title. Sign the quote with the author in a <strong> provided by SheCodes AI";
+  let context = "You are an expert quote writer. Generate a short, powerful quote and attribute it to a realistic human name (e.g. Maya Angelou-style, not Unknown). Format exactly as: <em>\"Quote\"</em><br><strong>Author Name</strong>";
   
   // Define the API URL with the prompt, context, and API key as parameters
   let apiURL = `https://api.shecodes.io/ai/v1/generate?prompt=${prompt}&context=${context}&key=${apikey}`;
