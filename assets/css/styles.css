@@ -5,34 +5,41 @@
   box-sizing: border-box;
 }
 
-/* BODY */
+/* BODY (DARK MODE BASE) */
 body {
-  font-family: "Segoe UI", Arial, sans-serif;
+  font-family: "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   color: #fdf4ff;
-  background: #14011f;
+  background: #0f001a;
   overflow-x: hidden;
+  transition: all 0.4s ease;
 }
 
-/* soft animated glow background */
+/* BACKGROUND GLOW (DARK) */
 .background {
-  position: absolute;
-  width: 100%;
-  height: 100%;
+  position: fixed;
+  inset: 0;
   background:
-    radial-gradient(circle at 20% 20%, rgba(168,85,247,0.25), transparent 40%),
-    radial-gradient(circle at 80% 70%, rgba(244,114,182,0.25), transparent 40%);
-  filter: blur(40px);
+    radial-gradient(circle at 15% 20%, rgba(168,85,247,0.35), transparent 45%),
+    radial-gradient(circle at 85% 75%, rgba(244,114,182,0.3), transparent 45%),
+    radial-gradient(circle at 50% 50%, rgba(99,102,241,0.15), transparent 60%);
+  filter: blur(50px);
   z-index: -1;
+  animation: floatBg 12s ease-in-out infinite alternate;
+}
+
+@keyframes floatBg {
+  from { transform: scale(1); }
+  to { transform: scale(1.05); }
 }
 
 /* WRAPPER */
 .container {
   width: 100%;
-  max-width: 650px;
+  max-width: 680px;
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -46,25 +53,28 @@ body {
 }
 
 .header h1 {
-  font-size: 2.2rem;
-  color: #f472b6;
+  font-size: 2.5rem;
+  background: linear-gradient(135deg, #a855f7, #f472b6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .subtitle {
   color: #e9d5ff;
-  opacity: 0.85;
+  opacity: 0.8;
   margin-top: 6px;
+  font-size: 0.95rem;
 }
 
-/* CARD */
+/* CARD (DARK) */
 .card {
   width: 100%;
-  background: rgba(168, 85, 247, 0.12);
-  backdrop-filter: blur(18px);
-  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(20px);
+  border-radius: 22px;
   padding: 2rem;
   border: 1px solid rgba(244, 114, 182, 0.25);
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.55);
 
   display: flex;
   flex-direction: column;
@@ -80,34 +90,85 @@ body {
 /* INPUT */
 .search-input {
   flex: 1;
-  padding: 12px 14px;
-  border-radius: 12px;
-  border: none;
+  padding: 14px 16px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.15);
   outline: none;
   font-size: 1rem;
   background: rgba(255, 255, 255, 0.95);
   color: #111;
+  transition: 0.25s ease;
 }
 
 .search-input:focus {
-  outline: 2px solid rgba(244, 114, 182, 0.6);
+  border-color: #f472b6;
+  box-shadow: 0 0 0 3px rgba(244, 114, 182, 0.25);
 }
 
 /* BUTTON */
 .submit-button {
-  padding: 12px 18px;
+  padding: 14px 18px;
   border: none;
-  border-radius: 12px;
+  border-radius: 14px;
   cursor: pointer;
   background: linear-gradient(135deg, #a855f7, #f472b6);
   color: #fff;
   font-weight: 700;
   transition: all 0.25s ease;
+  white-space: nowrap;
 }
 
 .submit-button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(244, 114, 182, 0.35);
+  box-shadow: 0 12px 28px rgba(244, 114, 182, 0.35);
+}
+
+/* CONTROLS */
+.controls {
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.controls select,
+.controls button {
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.08);
+  color: inherit;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.controls button:hover,
+.controls select:hover {
+  transform: translateY(-1px);
+}
+
+/* ACTIONS */
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.actions button {
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.08);
+  color: inherit;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.actions button:hover {
+  background: rgba(244,114,182,0.15);
+  transform: translateY(-2px);
 }
 
 /* HINT */
@@ -120,13 +181,29 @@ body {
 /* QUOTE */
 .quote {
   margin-top: 10px;
-  padding: 18px;
-  border-radius: 14px;
+  padding: 20px;
+  border-radius: 16px;
   background: rgba(255,255,255,0.08);
   text-align: center;
-  font-size: 1.2rem;
-  line-height: 1.6;
+  font-size: 1.25rem;
+  line-height: 1.7;
   color: #fce7f3;
+  border: 1px solid rgba(244,114,182,0.2);
+}
+
+/* EXPLANATION */
+.explanation {
+  margin-top: 10px;
+  padding: 14px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+}
+
+/* HISTORY */
+.history {
+  font-size: 0.8rem;
+  opacity: 0.7;
 }
 
 /* FOOTER */
@@ -144,9 +221,102 @@ body {
 }
 
 .footer a:hover {
-  color: #b672f4;
-  text-decoration: none;
-  font-weight: 600;
+  color: #a855f7;
+}
+
+/* =========================
+   🌙 LIGHT MODE (MATCHED)
+========================= */
+
+body.light {
+  background: #f7f5ff;
+  color: #1a1a1a;
+}
+
+/* LIGHT BACKGROUND GLOW */
+body.light .background {
+  background:
+    radial-gradient(circle at 15% 20%, rgba(168,85,247,0.18), transparent 50%),
+    radial-gradient(circle at 85% 75%, rgba(244,114,182,0.18), transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(99,102,241,0.12), transparent 65%);
+  filter: blur(60px);
+  opacity: 1;
+}
+
+/* LIGHT CARD */
+body.light .card {
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(168, 85, 247, 0.15);
+  box-shadow: 0 20px 50px rgba(20, 10, 40, 0.08);
+  color: #1a1a1a;
+}
+
+/* HEADER LIGHT */
+body.light .header h1 {
+  background: linear-gradient(135deg, #7c3aed, #ec4899);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+body.light .subtitle {
+  color: #4b5563;
+}
+
+/* INPUT LIGHT */
+body.light .search-input {
+  background: #ffffff;
+  color: #111;
+  border: 1px solid rgba(0,0,0,0.08);
+}
+
+body.light .search-input:focus {
+  border-color: #ec4899;
+  box-shadow: 0 0 0 3px rgba(236, 72, 153, 0.15);
+}
+
+/* BUTTON LIGHT */
+body.light .submit-button {
+  background: linear-gradient(135deg, #7c3aed, #ec4899);
+  color: #fff;
+}
+
+/* CONTROLS LIGHT */
+body.light .controls select,
+body.light .controls button,
+body.light .actions button {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(0,0,0,0.08);
+  color: #111;
+}
+
+body.light .actions button:hover {
+  background: rgba(236, 72, 153, 0.08);
+}
+
+/* QUOTE LIGHT */
+body.light .quote {
+  background: rgba(255, 255, 255, 0.9);
+  color: #111;
+  border: 1px solid rgba(236, 72, 153, 0.15);
+}
+
+/* EXPLANATION LIGHT */
+body.light .explanation {
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(0,0,0,0.08);
+}
+
+/* FOOTER LIGHT */
+body.light .footer {
+  color: #4b5563;
+}
+
+body.light .footer a {
+  color: #ec4899;
+}
+
+body.light .footer a:hover {
+  color: #7c3aed;
 }
 
 /* RESPONSIVE */
@@ -157,5 +327,10 @@ body {
 
   .submit-button {
     width: 100%;
+  }
+
+  .controls {
+    flex-direction: column;
+    align-items: stretch;
   }
 }
