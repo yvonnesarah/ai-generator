@@ -136,8 +136,8 @@ body {
   padding: 10px 12px;
   border-radius: 12px;
   border: 1px solid rgba(255,255,255,0.15);
-  background: rgba(255,255,255,0.08);
-  color: inherit;
+  background: #7c3aed;
+  color: white;
   cursor: pointer;
   transition: 0.2s ease;
 }
