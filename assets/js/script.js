@@ -15,6 +15,53 @@ document.querySelectorAll(".quick-topics button").forEach(btn => {
   });
 });
 
+// =====================
+// ⭐ FAVORITES RENDER
+// =====================
+function renderFavorites() {
+  let data = JSON.parse(localStorage.getItem("analytics")) || { favorites: [] };
+
+  let container = document.querySelector(".favorites-list");
+
+  if (!data.favorites || data.favorites.length === 0) {
+    container.innerHTML = "<p>No favourites yet ⭐</p>";
+    return;
+  }
+
+  container.innerHTML = data.favorites
+    .map((quote, index) => {
+      return `
+        <div class="favorite-item">
+          <p>${quote}</p>
+          <button class="delete-fav" data-index="${index}">🗑️ Delete</button>
+        </div>
+      `;
+    })
+    .join("");
+
+  // attach delete events
+  document.querySelectorAll(".delete-fav").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      deleteFavorite(e.target.dataset.index);
+    });
+  });
+}
+
+
+// =====================
+// 🗑️ DELETE FAVORITE
+// =====================
+function deleteFavorite(index) {
+  let data = JSON.parse(localStorage.getItem("analytics")) || { favorites: [] };
+
+  data.favorites.splice(index, 1);
+
+  localStorage.setItem("analytics", JSON.stringify(data));
+
+  renderFavorites();
+  renderDashboard();
+}
+
 // DISPLAY QUOTE
 function displayquote(response) {
   let quoteText = response.data.answer;
@@ -88,15 +135,19 @@ function saveAnalytics(topic) {
   renderDashboard();
 }
 
-// FAVORITES
+// FAVOURITES 
 document.querySelector("#favorite").addEventListener("click", () => {
-  let data = JSON.parse(localStorage.getItem("analytics")) || { favorites: [] };
+  let data = JSON.parse(localStorage.getItem("analytics")) || {
+    favorites: []
+  };
 
   if (!data.favorites.includes(lastQuote)) {
     data.favorites.push(lastQuote);
   }
 
   localStorage.setItem("analytics", JSON.stringify(data));
+
+  renderFavorites();
   renderDashboard();
 });
 
@@ -124,6 +175,8 @@ function renderDashboard() {
       datasets: [{ label: "Topics", data: values }]
     }
   });
+
+  renderFavorites(); // ✅ IMPORTANT
 }
 
 // SPEAK
@@ -197,3 +250,4 @@ document.querySelector("#toggle-theme").addEventListener("click", toggleTheme);
 // INIT
 renderHistory();
 renderDashboard();
+renderFavorites();
