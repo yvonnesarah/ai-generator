@@ -66,7 +66,7 @@ body {
   font-size: 0.95rem;
 }
 
-/* CARD (DARK) */
+/* CARD */
 .card {
   width: 100%;
   background: rgba(255, 255, 255, 0.08);
@@ -225,7 +225,7 @@ body {
 }
 
 /* =========================
-   🌙 LIGHT MODE (MATCHED)
+   🌙 LIGHT MODE
 ========================= */
 
 body.light {
@@ -233,17 +233,15 @@ body.light {
   color: #1a1a1a;
 }
 
-/* LIGHT BACKGROUND GLOW */
 body.light .background {
   background:
     radial-gradient(circle at 15% 20%, rgba(168,85,247,0.18), transparent 50%),
     radial-gradient(circle at 85% 75%, rgba(244,114,182,0.18), transparent 50%),
     radial-gradient(circle at 50% 50%, rgba(99,102,241,0.12), transparent 65%);
   filter: blur(60px);
-  opacity: 1;
 }
 
-/* LIGHT CARD */
+/* CARD LIGHT */
 body.light .card {
   background: rgba(255, 255, 255, 0.75);
   border: 1px solid rgba(168, 85, 247, 0.15);
@@ -251,46 +249,10 @@ body.light .card {
   color: #1a1a1a;
 }
 
-/* HEADER LIGHT */
-body.light .header h1 {
-  background: linear-gradient(135deg, #7c3aed, #ec4899);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-body.light .subtitle {
-  color: #4b5563;
-}
-
 /* INPUT LIGHT */
 body.light .search-input {
-  background: #ffffff;
-  color: #111;
+  background: #fff;
   border: 1px solid rgba(0,0,0,0.08);
-}
-
-body.light .search-input:focus {
-  border-color: #ec4899;
-  box-shadow: 0 0 0 3px rgba(236, 72, 153, 0.15);
-}
-
-/* BUTTON LIGHT */
-body.light .submit-button {
-  background: linear-gradient(135deg, #7c3aed, #ec4899);
-  color: #fff;
-}
-
-/* CONTROLS LIGHT */
-body.light .controls select,
-body.light .controls button,
-body.light .actions button {
-  background: rgba(255, 255, 255, 0.9);
-  border: 1px solid rgba(0,0,0,0.08);
-  color: #111;
-}
-
-body.light .actions button:hover {
-  background: rgba(236, 72, 153, 0.08);
 }
 
 /* QUOTE LIGHT */
@@ -311,29 +273,9 @@ body.light .footer {
   color: #4b5563;
 }
 
-body.light .footer a {
-  color: #ec4899;
-}
-
-body.light .footer a:hover {
-  color: #7c3aed;
-}
-
-/* RESPONSIVE */
-@media (max-width: 500px) {
-  .form {
-    flex-direction: column;
-  }
-
-  .submit-button {
-    width: 100%;
-  }
-
-  .controls {
-    flex-direction: column;
-    align-items: stretch;
-  }
-}
+/* =========================
+   DASHBOARD + FAVOURITES
+========================= */
 
 .dashboard {
   margin-top: 10px;
@@ -349,11 +291,39 @@ body.light .footer a:hover {
   font-size: 0.9rem;
 }
 
-.favorites-list {
+/* FAVOURITES LIST */
+.favourite-list {
   margin-top: 10px;
   font-size: 0.85rem;
 }
 
+.favourite-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  margin: 8px 0;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.favourite-item p {
+  flex: 1;
+  font-size: 0.9rem;
+}
+
+.delete-fav {
+  background: crimson;
+  border: none;
+  color: white;
+  padding: 6px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* ALERT */
 .alert {
   padding: 12px;
   border-radius: 12px;
@@ -363,6 +333,7 @@ body.light .footer a:hover {
   text-align: center;
 }
 
+/* QUICK TOPICS */
 .quick-topics {
   display: flex;
   gap: 8px;
@@ -377,4 +348,35 @@ body.light .footer a:hover {
   cursor: pointer;
   background: rgba(255,255,255,0.1);
   color: inherit;
+}
+
+.favorite-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  margin: 8px 0;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.favorite-item p {
+  flex: 1;
+  font-size: 0.9rem;
+}
+
+.delete-fav {
+  background: crimson;
+  border: none;
+  color: white;
+  padding: 6px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.delete-fav:hover {
+  transform: scale(1.05);
 }
