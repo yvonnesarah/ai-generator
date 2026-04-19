@@ -60,10 +60,23 @@ body {
 }
 
 .subtitle {
-  color: #e9d5ff;
-  opacity: 0.8;
-  margin-top: 6px;
   font-size: 0.95rem;
+  margin-top: 6px;
+  opacity: 0.9;
+}
+
+/* DARK */
+body:not(.light) .subtitle {
+  background: linear-gradient(135deg, #c084fc, #f9a8d4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* LIGHT */
+body.light .subtitle {
+  background: linear-gradient(135deg, #7c3aed, #db2777);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 /* CARD */
