@@ -2,9 +2,11 @@
 let quoteElement = document.querySelector(".quote");
 let explanationElement = document.querySelector(".explanation");
 let form = document.querySelector("#form");
+let alertBox = document.querySelector(".alert");
 
 let lastTopic = "";
 let lastQuote = "";
+let hasExplained = false; // ✅ NEW
 let chart;
 
 // DISPLAY QUOTE
@@ -28,8 +30,11 @@ function displayquote(response) {
   });
 
   lastQuote = quoteText;
+  hasExplained = false; // 🔄 reset
 
   document.querySelector(".actions").classList.remove("hidden");
+
+  alertBox.classList.add("hidden"); // ✅ clear alert
 
   saveHistory(lastTopic);
   saveAnalytics(lastTopic, lastQuote);
@@ -156,12 +161,22 @@ function explainQuote() {
 
   axios.get(url).then((res) => {
     explanationElement.innerHTML = res.data.answer;
+    hasExplained = true; // ✅ mark complete
+    alertBox.classList.add("hidden"); // clear warning
   });
 }
 
-// SEARCH
+// SEARCH (UPDATED 🚨)
 function handleSearch(event) {
   event.preventDefault();
+
+  // 🚨 BLOCK if not explained
+  if (lastQuote && !hasExplained) {
+    alertBox.classList.remove("hidden");
+    alertBox.innerHTML =
+      "⚠️ Please click the 🧠 Explain button before searching for a new word.";
+    return;
+  }
 
   let topic = document.querySelector(".search-input").value;
   let language = document.querySelector("#language").value;
@@ -171,7 +186,7 @@ function handleSearch(event) {
   let apiKey = "8bcecf2b930c0252ec9aa584f9do621t";
   let prompt = `Generate a quote about ${topic} in ${language}`;
   let context =
-    'You are an expert quote writer. Generate a short, powerful quote and attribute it to a realistic human name (e.g. Maya Angelou-style, not Unknown). Format exactly as: <em>\"Quote\"</em><br><strong>Author Name</strong>"';
+    'You are an expert quote writer. Generate a short, powerful quote and attribute it to a realistic human name (e.g. Maya Angelou-style, not Unknown). Format exactly as: <em>\"Quote\"</em><br><strong>Author Name</strong>';
 
   let url = `https://api.shecodes.io/ai/v1/generate?prompt=${prompt}&context=${context}&key=${apiKey}`;
 
@@ -180,19 +195,21 @@ function handleSearch(event) {
   axios.get(url).then(displayquote).catch(showError);
 }
 
-// ✅ Regenerate
+// REGENERATE
 function regenerateQuote() {
   if (lastTopic) {
     handleSearch(new Event("submit"));
   }
 }
 
-// ✅ Theme toggle
+// THEME
 function toggleTheme() {
   document.body.classList.toggle("light");
-  localStorage.setItem("theme", document.body.classList.contains("light") ? "light" : "dark");
+  localStorage.setItem(
+    "theme",
+    document.body.classList.contains("light") ? "light" : "dark"
+  );
 }
-
 
 // EVENTS
 form.addEventListener("submit", handleSearch);
