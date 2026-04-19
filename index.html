@@ -9,6 +9,9 @@
 
     <script src="https://unpkg.com/typewriter-effect@latest/dist/core.js"></script>
     <script src="https://unpkg.com/axios@1.6.7/dist/axios.min.js"></script>
+
+     <!-- 📊 Chart Library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
 
   <body>
@@ -54,6 +57,7 @@
   <button id="speak">🔊 Speak</button>
   <button id="explain">🧠 Explain</button>
   <button id="regenerate">🔁 Regenerate</button>
+  <button id="favorite">⭐ Save</button>
 </div>
 
 
@@ -66,7 +70,23 @@
       <h2>History</h2>
       <div class="history"></div>
 
+      <!-- 📊 DASHBOARD -->
+      <h2>📊 Analytics Dashboard</h2>
+
+      <div class="dashboard">
+        <canvas id="topicsChart"></canvas>
+
+        <div class="stats">
+          <p>🔥 Daily Streak: <span id="streak">0</span></p>
+          <p>⭐ Favorites: <span id="favoritesCount">0</span></p>
+        </div>
+
+        <div class="favorites-list"></div>
+      </div>
+
     </main>
+
+
 
     <footer class="footer">
       Coded by 
