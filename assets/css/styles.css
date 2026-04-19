@@ -334,3 +334,22 @@ body.light .footer a:hover {
     align-items: stretch;
   }
 }
+
+.dashboard {
+  margin-top: 10px;
+  padding: 16px;
+  border-radius: 14px;
+  background: rgba(255,255,255,0.05);
+}
+
+.stats {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  font-size: 0.9rem;
+}
+
+.favorites-list {
+  margin-top: 10px;
+  font-size: 0.85rem;
+}
