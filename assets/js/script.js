@@ -1,4 +1,3 @@
-// Elements
 let quoteElement = document.querySelector(".quote");
 let explanationElement = document.querySelector(".explanation");
 let form = document.querySelector("#form");
@@ -6,20 +5,21 @@ let alertBox = document.querySelector(".alert");
 
 let lastTopic = "";
 let lastQuote = "";
-let hasExplained = false; // ✅ NEW
+let hasExplained = false;
 let chart;
+
+// QUICK TOPICS
+document.querySelectorAll(".quick-topics button").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelector(".search-input").value = btn.dataset.topic;
+  });
+});
 
 // DISPLAY QUOTE
 function displayquote(response) {
   let quoteText = response.data.answer;
 
-  if (
-    quoteText.toLowerCase().includes("unknown") ||
-    quoteText.toLowerCase().includes("anonymous")
-  ) {
-    quoteText = quoteText.replace(/unknown|anonymous/i, "AI Thinker");
-  }
-
+  quoteElement.classList.remove("hidden");
   quoteElement.innerHTML = "";
 
   new Typewriter(".quote", {
@@ -30,14 +30,12 @@ function displayquote(response) {
   });
 
   lastQuote = quoteText;
-  hasExplained = false; // 🔄 reset
+  hasExplained = false;
 
   document.querySelector(".actions").classList.remove("hidden");
 
-  alertBox.classList.add("hidden"); // ✅ clear alert
-
   saveHistory(lastTopic);
-  saveAnalytics(lastTopic, lastQuote);
+  saveAnalytics(lastTopic);
 }
 
 // LOADING
@@ -62,44 +60,37 @@ function saveHistory(topic) {
 
 function renderHistory() {
   let history = JSON.parse(localStorage.getItem("history")) || [];
+
   document.querySelector(".history").innerHTML =
-    history.map((item) => `<div>🔎 ${item}</div>`).join("");
+    history.map(item => `<div class="history-item">🔎 ${item}</div>`).join("");
+
+  document.querySelectorAll(".history-item").forEach(el => {
+    el.addEventListener("click", () => {
+      document.querySelector(".search-input").value =
+        el.innerText.replace("🔎 ", "");
+    });
+  });
 }
 
 // ANALYTICS
-function saveAnalytics(topic, quote) {
+function saveAnalytics(topic) {
   let data = JSON.parse(localStorage.getItem("analytics")) || {
     topics: {},
     favorites: [],
-    lastVisit: null,
-    streak: 0
+    streak: 0,
+    total: 0
   };
 
   data.topics[topic] = (data.topics[topic] || 0) + 1;
-
-  let today = new Date().toDateString();
-
-  if (data.lastVisit) {
-    let last = new Date(data.lastVisit);
-    let diff = (new Date(today) - last) / (1000 * 60 * 60 * 24);
-
-    if (diff === 1) data.streak += 1;
-    else if (diff > 1) data.streak = 1;
-  } else {
-    data.streak = 1;
-  }
-
-  data.lastVisit = today;
+  data.total++;
 
   localStorage.setItem("analytics", JSON.stringify(data));
   renderDashboard();
 }
 
 // FAVORITES
-function saveFavorite() {
-  let data = JSON.parse(localStorage.getItem("analytics")) || {
-    favorites: []
-  };
+document.querySelector("#favorite").addEventListener("click", () => {
+  let data = JSON.parse(localStorage.getItem("analytics")) || { favorites: [] };
 
   if (!data.favorites.includes(lastQuote)) {
     data.favorites.push(lastQuote);
@@ -107,22 +98,17 @@ function saveFavorite() {
 
   localStorage.setItem("analytics", JSON.stringify(data));
   renderDashboard();
-}
+});
 
 // DASHBOARD
 function renderDashboard() {
-  let data = JSON.parse(localStorage.getItem("analytics"));
-  if (!data) return;
+  let data = JSON.parse(localStorage.getItem("analytics")) || {};
 
   document.querySelector("#streak").innerText = data.streak || 0;
   document.querySelector("#favoritesCount").innerText =
     data.favorites?.length || 0;
 
-  document.querySelector(".favorites-list").innerHTML =
-    (data.favorites || [])
-      .slice(-3)
-      .map((q) => `<div>⭐ ${q}</div>`)
-      .join("");
+  document.querySelector("#totalCount").innerText = data.total || 0;
 
   let labels = Object.keys(data.topics || {});
   let values = Object.values(data.topics || {});
@@ -134,11 +120,8 @@ function renderDashboard() {
   chart = new Chart(ctx, {
     type: "bar",
     data: {
-      labels: labels,
-      datasets: [{
-        label: "Search Frequency",
-        data: values
-      }]
+      labels,
+      datasets: [{ label: "Topics", data: values }]
     }
   });
 }
@@ -153,28 +136,27 @@ function speakQuote() {
 function explainQuote() {
   let apiKey = "8bcecf2b930c0252ec9aa584f9do621t";
   let prompt = `Explain this quote simply: ${lastQuote}`;
-  let context = "You are a helpful teacher.";
-  let url = `https://api.shecodes.io/ai/v1/generate?prompt=${prompt}&context=${context}&key=${apiKey}`;
+
+  let url = `https://api.shecodes.io/ai/v1/generate?prompt=${prompt}&context=You are a teacher&key=${apiKey}`;
 
   explanationElement.classList.remove("hidden");
   explanationElement.innerHTML = "🧠 Thinking...";
 
-  axios.get(url).then((res) => {
+  axios.get(url).then(res => {
     explanationElement.innerHTML = res.data.answer;
-    hasExplained = true; // ✅ mark complete
-    alertBox.classList.add("hidden"); // clear warning
+    hasExplained = true;
+    alertBox.classList.add("hidden");
   });
 }
 
-// SEARCH (UPDATED 🚨)
+// SEARCH
 function handleSearch(event) {
   event.preventDefault();
 
-  // 🚨 BLOCK if not explained
   if (lastQuote && !hasExplained) {
     alertBox.classList.remove("hidden");
     alertBox.innerHTML =
-      "⚠️ Please click the 🧠 Explain button before searching for a new word.";
+      "⚠️ Please explain the quote before generating a new one.";
     return;
   }
 
@@ -183,12 +165,9 @@ function handleSearch(event) {
 
   lastTopic = topic;
 
-  let apiKey = "8bcecf2b930c0252ec9aa584f9do621t";
   let prompt = `Generate a quote about ${topic} in ${language}`;
-  let context =
-    'You are an expert quote writer. Generate a short, powerful quote and attribute it to a realistic human name (e.g. Maya Angelou-style, not Unknown). Format exactly as: <em>\"Quote\"</em><br><strong>Author Name</strong>';
 
-  let url = `https://api.shecodes.io/ai/v1/generate?prompt=${prompt}&context=${context}&key=${apiKey}`;
+  let url = `https://api.shecodes.io/ai/v1/generate?prompt=${prompt}&context=You are an expert quote writer. Generate a short, powerful quote and attribute it to a realistic human name (e.g. Maya Angelou-style, not Unknown). Format exactly as: <em>\"Quote\"</em><br><strong>Author Name</strong>&key=8bcecf3b930c0252ec9aa584f9do621t`;
 
   showLoading(topic);
 
@@ -198,6 +177,7 @@ function handleSearch(event) {
 // REGENERATE
 function regenerateQuote() {
   if (lastTopic) {
+    document.querySelector(".search-input").value = lastTopic;
     handleSearch(new Event("submit"));
   }
 }
@@ -205,19 +185,14 @@ function regenerateQuote() {
 // THEME
 function toggleTheme() {
   document.body.classList.toggle("light");
-  localStorage.setItem(
-    "theme",
-    document.body.classList.contains("light") ? "light" : "dark"
-  );
 }
 
 // EVENTS
 form.addEventListener("submit", handleSearch);
-document.querySelector("#favorite").addEventListener("click", saveFavorite);
 document.querySelector("#speak").addEventListener("click", speakQuote);
 document.querySelector("#explain").addEventListener("click", explainQuote);
-document.querySelector("#regenerate")?.addEventListener("click", regenerateQuote);
-document.querySelector("#toggle-theme")?.addEventListener("click", toggleTheme);
+document.querySelector("#regenerate").addEventListener("click", regenerateQuote);
+document.querySelector("#toggle-theme").addEventListener("click", toggleTheme);
 
 // INIT
 renderHistory();
