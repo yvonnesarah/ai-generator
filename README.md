@@ -35,12 +35,6 @@ No installation is required to use the app. It is hosted online and can be acces
 
 ## 📚 Usage
 1. Open the web application in your browser.
-2. Enter a keyword in the input field.
-3. Click the Submit button to generate a related quote.
-4. The quote will be displayed on the page with a typewriter effect.
-5. Enjoy the AI-generated quote and experiment with different keywords.
-
-1. Open the web application in your browser.
 2. Enter a keyword in the input field or select a quick topic.
 3. Click the Generate button to create a related quote.
 4. The quote will be displayed on the page with a typewriter effect.
