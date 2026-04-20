@@ -2,11 +2,14 @@ let quoteElement = document.querySelector(".quote");
 let explanationElement = document.querySelector(".explanation");
 let form = document.querySelector("#form");
 let alertBox = document.querySelector(".alert");
+let suggestionsBox = document.querySelector(".suggestions");
+let typingTimer;
 
 let lastTopic = "";
 let lastQuote = "";
 let hasExplained = false;
 let chart;
+
 
 // QUICK TOPICS
 document.querySelectorAll(".quick-topics button").forEach(btn => {
@@ -135,6 +138,66 @@ function saveAnalytics(topic) {
   renderDashboard();
 }
 
+function getTrendingTopics() {
+  let data = JSON.parse(localStorage.getItem("analytics")) || {};
+  let topics = data.topics || {};
+
+  return Object.keys(topics)
+    .sort((a, b) => topics[b] - topics[a])
+    .slice(0, 3);
+}
+
+function fetchSuggestions(topic) {
+  let apiKey = "8bcecf2b930c0252ec9aa584f9do621t";
+
+  let prompt = `Give 5 short related topics to: ${topic}. Format as comma separated list.`;
+
+  let url = `https://api.shecodes.io/ai/v1/generate?prompt=${prompt}&context=You are a helpful assistant&key=${apiKey}`;
+
+  axios.get(url).then(res => {
+    let suggestions = res.data.answer.split(",");
+    renderSuggestions(suggestions);
+  }).catch(() => {
+    suggestionsBox.classList.add("hidden");
+  });
+}
+
+function renderSuggestions(list) {
+  let trending = getTrendingTopics();
+
+  let combined = [...new Set([...trending, ...list])];
+
+  if (combined.length === 0) return;
+
+  suggestionsBox.classList.remove("hidden");
+
+  suggestionsBox.innerHTML = combined
+    .map(item => `<div class="suggestion-item">${item.trim()}</div>`)
+    .join("");
+
+  document.querySelectorAll(".suggestion-item").forEach(el => {
+    el.addEventListener("click", () => {
+      document.querySelector(".search-input").value = el.innerText;
+      suggestionsBox.classList.add("hidden");
+    });
+  });
+}
+
+document.querySelector(".search-input").addEventListener("input", (e) => {
+  let value = e.target.value.trim();
+
+  clearTimeout(typingTimer);
+
+  if (value.length < 3) {
+    suggestionsBox.classList.add("hidden");
+    return;
+  }
+
+  typingTimer = setTimeout(() => {
+    fetchSuggestions(value);
+  }, 500); // debounce delay
+});
+
 // FAVOURITES 
 document.querySelector("#favorite").addEventListener("click", () => {
   let data = JSON.parse(localStorage.getItem("analytics")) || {
@@ -205,6 +268,8 @@ function explainQuote() {
 // SEARCH
 function handleSearch(event) {
   event.preventDefault();
+
+  suggestionsBox.classList.add("hidden");
 
   if (lastQuote && !hasExplained) {
     alertBox.classList.remove("hidden");
