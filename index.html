@@ -1,31 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- Basic page setup -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Page title (shown in browser tab) -->
     <title>AI Quotes Generator</title>
 
+    <!-- Main stylesheet -->
     <link rel="stylesheet" href="assets/css/styles.css" />
 
+    <!-- External libraries -->
+    <!-- Typewriter effect for animated text -->
     <script src="https://unpkg.com/typewriter-effect@latest/dist/core.js"></script>
+
+    <!-- Axios for API requests -->
     <script src="https://unpkg.com/axios@1.6.7/dist/axios.min.js"></script>
 
+    <!-- Chart.js for analytics graphs -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/html2canvas"></script>
   </head>
 
   <body>
+    <!-- Background styling layer -->
     <div class="background"></div>
 
+    <!-- Main app container -->
     <div class="container">
 
+      <!-- Header section -->
       <header class="header">
         <h1>AI Quotes Generator</h1>
         <p class="subtitle">Type a topic and get an AI-generated quote ✨</p>
       </header>
 
+      <!-- Main card content -->
       <main class="card">
 
+        <!-- Quick topic buttons for fast input -->
         <div class="quick-topics">
           <button data-topic="Love">❤️ Love</button>
           <button data-topic="Success">🚀 Success</button>
@@ -35,7 +48,9 @@
           <button data-topic="Family">👨‍👩‍👧‍👦 Family</button>
         </div>
 
+        <!-- Form for user input -->
         <form id="form" class="form">
+          <!-- Text input for topic -->
           <input
             class="search-input"
             type="text"
@@ -43,17 +58,23 @@
             autocomplete="off"
             required
           />
+
+          <!-- Submit button -->
           <button type="submit" class="submit-button">
             Generate
           </button>
         </form>
 
+        <!-- Suggestions area (populated dynamically) -->
         <h2>Suggestions Box</h2>
         <div class="suggestions hidden"></div>
 
+        <!-- Alert messages (errors, notifications) -->
         <div class="alert hidden"></div>
 
+        <!-- Controls section (language + theme toggle) -->
         <div class="controls">
+          <!-- Language selection dropdown -->
           <select id="language">
             <option value="English">English</option>
             <option value="French">French</option>
@@ -63,29 +84,37 @@
             <option value="German">German</option>
           </select>
 
+          <!-- Dark/light mode toggle -->
           <button id="toggle-theme">🌙</button>
         </div>
 
+        <!-- Action buttons (shown after quote is generated) -->
         <div class="actions hidden">
-          <button id="speak">🔊 Speak</button>
-          <button id="explain">🧠 Explain</button>
-          <button id="regenerate">🔁 Regenerate</button>
-          <button id="favorite">⭐ Save</button>
+          <button id="speak">🔊 Speak</button> <!-- Text-to-speech -->
+          <button id="explain">🧠 Explain</button> <!-- Explain quote -->
+          <button id="regenerate">🔁 Regenerate</button> <!-- New quote -->
+          <button id="favorite">⭐ Save</button> <!-- Save to favorites -->
         </div>
 
+        <!-- Generated quote display -->
         <div class="quote hidden"></div>
 
+        <!-- Explanation section -->
         <h2>Explanation</h2>
         <div class="explanation hidden"></div>
 
+        <!-- History of generated quotes -->
         <h2>History</h2>
         <div class="history"></div>
 
+        <!-- Analytics dashboard -->
         <h2>📊 Analytics Dashboard</h2>
 
         <div class="dashboard">
+          <!-- Chart showing topic usage -->
           <canvas id="topicsChart"></canvas>
 
+          <!-- Stats summary -->
           <div class="stats">
             <p>🔥 Daily Streak: <span id="streak">0</span></p>
             <p>⭐ Favourites: <span id="favoritesCount">0</span></p>
@@ -93,12 +122,15 @@
           </div>
 
           <br>
+
+          <!-- Favorites list -->
           <h2>Favourite List</h2>
           <div class="favorites-list"></div>
         </div>
 
       </main>
 
+      <!-- Footer with credits and links -->
       <footer class="footer">
         Coded by
         <a href="https://github.com/yvonnesarah" target="_blank">Yvonne Adedeji</a>
@@ -110,6 +142,7 @@
 
     </div>
 
+    <!-- Main JavaScript file -->
     <script src="assets/js/script.js"></script>
   </body>
 </html>
