@@ -74,7 +74,7 @@ AI Generator - Love Dashboard
 
 
 ## 🗺️ Roadmap (Planned Features)
-A forward-looking plan focused on expanding capabilities and making the AI Generator more intelligent and engaging:
+To expand the capabilities of the AI Generator and deliver smarter, more contextual outputs, the following features are planned:
 
 🤖 AI Enhancements
 * Fetch related topic suggestions dynamically ✅
@@ -87,7 +87,7 @@ A forward-looking plan focused on expanding capabilities and making the AI Gener
 * Smart alert system to guide user flow ✅
 
 ## 🚀 Upcoming Features
-Planned upgrades designed to improve usability, visual polish, and overall user experience:
+These upcoming improvements focus on making the AI Generator more intuitive, visually engaging, and user-friendly:
 
 💾 Data Persistence
 * Save favorite quotes (with delete option) ✅
@@ -101,7 +101,7 @@ Planned upgrades designed to improve usability, visual polish, and overall user 
 * Highlight trending topics (most searched) ✅
 
 ## 🧠 Advanced Features (Professional Level)
-High-level improvements aimed at boosting performance, reliability, and system intelligence:
+These advanced capabilities are designed to optimize performance, enhance reliability, and provide a more refined AI experience:
 
 💡 Smart Features
 * Debounced input to optimize API calls ✅
