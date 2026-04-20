@@ -1,57 +1,83 @@
-/* RESET */
+/* =========================
+   🔄 RESET (Normalize default browser styles)
+========================= */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* BODY (DARK MODE BASE) */
+
+/* =========================
+   🌙 BODY (Dark mode base)
+========================= */
 body {
   font-family: "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
   min-height: 100vh;
+
+  /* Center content */
   display: flex;
   align-items: center;
   justify-content: center;
+
   color: #fdf4ff;
   background: #0f001a;
+
   overflow-x: hidden;
   transition: all 0.4s ease;
 }
 
-/* BACKGROUND GLOW (DARK) */
+
+/* =========================
+   ✨ BACKGROUND GLOW (Dark)
+========================= */
 .background {
   position: fixed;
   inset: 0;
+
+  /* Multiple radial gradients for glow effect */
   background:
     radial-gradient(circle at 15% 20%, rgba(168,85,247,0.35), transparent 45%),
     radial-gradient(circle at 85% 75%, rgba(244,114,182,0.3), transparent 45%),
     radial-gradient(circle at 50% 50%, rgba(99,102,241,0.15), transparent 60%);
+
   filter: blur(50px);
   z-index: -1;
+
+  /* Subtle animation */
   animation: floatBg 12s ease-in-out infinite alternate;
 }
 
+/* Background animation */
 @keyframes floatBg {
   from { transform: scale(1); }
   to { transform: scale(1.05); }
 }
 
-/* WRAPPER */
+
+/* =========================
+   📦 MAIN WRAPPER
+========================= */
 .container {
   width: 100%;
   max-width: 680px;
   padding: 20px;
+
   display: flex;
   flex-direction: column;
   gap: 18px;
   align-items: center;
 }
 
-/* HEADER */
+
+/* =========================
+   🧾 HEADER
+========================= */
 .header {
   text-align: center;
 }
 
+/* Gradient title */
 .header h1 {
   font-size: 2.5rem;
   background: linear-gradient(135deg, #a855f7, #f472b6);
@@ -59,33 +85,40 @@ body {
   -webkit-text-fill-color: transparent;
 }
 
+/* Subtitle text */
 .subtitle {
   font-size: 0.95rem;
   margin-top: 6px;
   opacity: 0.9;
 }
 
-/* DARK */
+/* Subtitle gradient (dark mode) */
 body:not(.light) .subtitle {
   background: linear-gradient(135deg, #c084fc, #f9a8d4);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-/* LIGHT */
+/* Subtitle gradient (light mode) */
 body.light .subtitle {
   background: linear-gradient(135deg, #7c3aed, #db2777);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-/* CARD */
+
+/* =========================
+   🪟 CARD (Main UI panel)
+========================= */
 .card {
   width: 100%;
+  padding: 2rem;
+  border-radius: 22px;
+
+  /* Glassmorphism effect */
   background: rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(20px);
-  border-radius: 22px;
-  padding: 2rem;
+
   border: 1px solid rgba(244, 114, 182, 0.25);
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.55);
 
@@ -94,49 +127,67 @@ body.light .subtitle {
   gap: 14px;
 }
 
-/* FORM */
+
+/* =========================
+   📝 FORM
+========================= */
 .form {
   display: flex;
   gap: 10px;
 }
 
-/* INPUT */
+/* Input field */
 .search-input {
   flex: 1;
   padding: 14px 16px;
   border-radius: 14px;
+
   border: 1px solid rgba(255,255,255,0.15);
   outline: none;
+
   font-size: 1rem;
+
   background: rgba(255, 255, 255, 0.95);
   color: #111;
+
   transition: 0.25s ease;
 }
 
+/* Input focus state */
 .search-input:focus {
   border-color: #f472b6;
   box-shadow: 0 0 0 3px rgba(244, 114, 182, 0.25);
 }
 
-/* BUTTON */
+
+/* =========================
+   🔘 BUTTONS
+========================= */
 .submit-button {
   padding: 14px 18px;
   border: none;
   border-radius: 14px;
+
   cursor: pointer;
+
   background: linear-gradient(135deg, #a855f7, #f472b6);
   color: #fff;
   font-weight: 700;
+
   transition: all 0.25s ease;
   white-space: nowrap;
 }
 
+/* Hover effect */
 .submit-button:hover {
   transform: translateY(-2px);
   box-shadow: 0 12px 28px rgba(244, 114, 182, 0.35);
 }
 
-/* CONTROLS */
+
+/* =========================
+   🎛 CONTROLS (language + theme)
+========================= */
 .controls {
   display: flex;
   gap: 10px;
@@ -148,9 +199,11 @@ body.light .subtitle {
 .controls button {
   padding: 10px 12px;
   border-radius: 12px;
+
   border: 1px solid rgba(255,255,255,0.15);
   background: #7c3aed;
   color: white;
+
   cursor: pointer;
   transition: 0.2s ease;
 }
@@ -160,7 +213,10 @@ body.light .subtitle {
   transform: translateY(-1px);
 }
 
-/* ACTIONS */
+
+/* =========================
+   ⚡ ACTION BUTTONS
+========================= */
 .actions {
   display: flex;
   flex-wrap: wrap;
@@ -172,10 +228,13 @@ body.light .subtitle {
 .actions button {
   padding: 10px 14px;
   border-radius: 12px;
+
   border: 1px solid rgba(255,255,255,0.15);
   background: rgba(255,255,255,0.08);
+
   color: inherit;
   cursor: pointer;
+
   transition: 0.2s ease;
 }
 
@@ -184,35 +243,229 @@ body.light .subtitle {
   transform: translateY(-2px);
 }
 
-/* QUOTE */
+
+/* =========================
+   💬 QUOTE DISPLAY
+========================= */
 .quote {
   margin-top: 10px;
   padding: 20px;
   border-radius: 16px;
+
   background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(244,114,182,0.2);
+
   text-align: center;
   font-size: 1.25rem;
   line-height: 1.7;
+
   color: #fce7f3;
-  border: 1px solid rgba(244,114,182,0.2);
 }
 
-/* EXPLANATION */
+
+/* =========================
+   🧠 EXPLANATION BOX
+========================= */
 .explanation {
   margin-top: 10px;
   padding: 14px;
   border-radius: 12px;
+
   background: rgba(255,255,255,0.08);
   border: 1px solid rgba(255,255,255,0.12);
 }
 
-/* HISTORY */
+
+/* =========================
+   🕘 HISTORY
+========================= */
 .history {
   font-size: 0.8rem;
   opacity: 0.7;
 }
 
-/* FOOTER */
+
+/* =========================
+   📊 DASHBOARD
+========================= */
+.dashboard {
+  margin-top: 10px;
+  padding: 16px;
+  border-radius: 14px;
+  background: rgba(255,255,255,0.05);
+}
+
+.stats {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  font-size: 0.9rem;
+}
+
+
+/* =========================
+   ⭐ FAVORITES
+========================= */
+
+/* NOTE: You had both `.favourite-item` and `.favorite-item`
+   → keeping both but ideally standardise spelling */
+
+.favorite-item,
+.favourite-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  gap: 10px;
+  padding: 10px;
+  margin: 8px 0;
+
+  border-radius: 12px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.favorite-item p,
+.favourite-item p {
+  flex: 1;
+  font-size: 0.9rem;
+}
+
+/* Delete button */
+.delete-fav {
+  background: crimson;
+  border: none;
+  color: white;
+
+  padding: 6px 10px;
+  border-radius: 8px;
+
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.delete-fav:hover {
+  transform: scale(1.05);
+}
+
+
+/* =========================
+   ⚠️ ALERT
+========================= */
+.alert {
+  padding: 12px;
+  border-radius: 12px;
+
+  background: rgba(255, 200, 0, 0.15);
+  border: 1px solid rgba(255, 200, 0, 0.35);
+
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+
+/* =========================
+   ⚡ QUICK TOPICS
+========================= */
+.quick-topics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 10px 0;
+}
+
+.quick-topics button {
+  padding: 6px 10px;
+  border-radius: 10px;
+  border: none;
+
+  cursor: pointer;
+
+  background: rgba(255,255,255,0.1);
+  color: inherit;
+}
+
+/* =========================
+   💡 AI SUGGESTIONS
+========================= */
+.suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.suggestion-item {
+  padding: 6px 10px;
+  border-radius: 10px;
+
+  background: rgba(255,255,255,0.1);
+
+  cursor: pointer;
+  font-size: 0.85rem;
+
+  transition: 0.2s ease;
+}
+
+.suggestion-item:hover {
+  background: rgba(244,114,182,0.25);
+  transform: translateY(-1px);
+}
+
+
+/* =========================
+   🌞 LIGHT MODE OVERRIDES
+========================= */
+body.light {
+  background: #f7f5ff;
+  color: #1a1a1a;
+}
+
+/* Background (light) */
+body.light .background {
+  background:
+    radial-gradient(circle at 15% 20%, rgba(168,85,247,0.18), transparent 50%),
+    radial-gradient(circle at 85% 75%, rgba(244,114,182,0.18), transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(99,102,241,0.12), transparent 65%);
+  filter: blur(60px);
+}
+
+/* Card (light) */
+body.light .card {
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(168, 85, 247, 0.15);
+  box-shadow: 0 20px 50px rgba(20, 10, 40, 0.08);
+  color: #1a1a1a;
+}
+
+/* Input (light) */
+body.light .search-input {
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.08);
+}
+
+/* Quote (light) */
+body.light .quote {
+  background: rgba(255, 255, 255, 0.9);
+  color: #111;
+  border: 1px solid rgba(236, 72, 153, 0.15);
+}
+
+/* Explanation (light) */
+body.light .explanation {
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(0,0,0,0.08);
+}
+
+/* Footer (light) */
+body.light .footer {
+  color: #4b5563;
+}
+
+
+/* =========================
+   🔗 FOOTER
+========================= */
 .footer {
   font-size: 0.85rem;
   text-align: center;
@@ -228,183 +481,4 @@ body.light .subtitle {
 
 .footer a:hover {
   color: #a855f7;
-}
-
-/* =========================
-   🌙 LIGHT MODE
-========================= */
-
-body.light {
-  background: #f7f5ff;
-  color: #1a1a1a;
-}
-
-body.light .background {
-  background:
-    radial-gradient(circle at 15% 20%, rgba(168,85,247,0.18), transparent 50%),
-    radial-gradient(circle at 85% 75%, rgba(244,114,182,0.18), transparent 50%),
-    radial-gradient(circle at 50% 50%, rgba(99,102,241,0.12), transparent 65%);
-  filter: blur(60px);
-}
-
-/* CARD LIGHT */
-body.light .card {
-  background: rgba(255, 255, 255, 0.75);
-  border: 1px solid rgba(168, 85, 247, 0.15);
-  box-shadow: 0 20px 50px rgba(20, 10, 40, 0.08);
-  color: #1a1a1a;
-}
-
-/* INPUT LIGHT */
-body.light .search-input {
-  background: #fff;
-  border: 1px solid rgba(0,0,0,0.08);
-}
-
-/* QUOTE LIGHT */
-body.light .quote {
-  background: rgba(255, 255, 255, 0.9);
-  color: #111;
-  border: 1px solid rgba(236, 72, 153, 0.15);
-}
-
-/* EXPLANATION LIGHT */
-body.light .explanation {
-  background: rgba(255, 255, 255, 0.85);
-  border: 1px solid rgba(0,0,0,0.08);
-}
-
-/* FOOTER LIGHT */
-body.light .footer {
-  color: #4b5563;
-}
-
-/* =========================
-   DASHBOARD + FAVOURITES
-========================= */
-
-.dashboard {
-  margin-top: 10px;
-  padding: 16px;
-  border-radius: 14px;
-  background: rgba(255,255,255,0.05);
-}
-
-.stats {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 10px;
-  font-size: 0.9rem;
-}
-
-/* FAVOURITES LIST */
-.favourite-list {
-  margin-top: 10px;
-  font-size: 0.85rem;
-}
-
-.favourite-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
-  padding: 10px;
-  margin: 8px 0;
-  border-radius: 12px;
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.1);
-}
-
-.favourite-item p {
-  flex: 1;
-  font-size: 0.9rem;
-}
-
-.delete-fav {
-  background: crimson;
-  border: none;
-  color: white;
-  padding: 6px 10px;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-/* ALERT */
-.alert {
-  padding: 12px;
-  border-radius: 12px;
-  background: rgba(255, 200, 0, 0.15);
-  border: 1px solid rgba(255, 200, 0, 0.35);
-  font-size: 0.9rem;
-  text-align: center;
-}
-
-/* QUICK TOPICS */
-.quick-topics {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin: 10px 0;
-}
-
-.quick-topics button {
-  padding: 6px 10px;
-  border-radius: 10px;
-  border: none;
-  cursor: pointer;
-  background: rgba(255,255,255,0.1);
-  color: inherit;
-}
-
-.favorite-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
-  padding: 10px;
-  margin: 8px 0;
-  border-radius: 12px;
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.1);
-}
-
-.favorite-item p {
-  flex: 1;
-  font-size: 0.9rem;
-}
-
-.delete-fav {
-  background: crimson;
-  border: none;
-  color: white;
-  padding: 6px 10px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-.delete-fav:hover {
-  transform: scale(1.05);
-}
-
-/* AI Suggestions */
-.suggestions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 8px;
-}
-
-.suggestion-item {
-  padding: 6px 10px;
-  border-radius: 10px;
-  background: rgba(255,255,255,0.1);
-  cursor: pointer;
-  font-size: 0.85rem;
-  transition: 0.2s ease;
-}
-
-.suggestion-item:hover {
-  background: rgba(244,114,182,0.25);
-  transform: translateY(-1px);
 }
