@@ -184,13 +184,6 @@ body.light .subtitle {
   transform: translateY(-2px);
 }
 
-/* HINT */
-.hint {
-  font-size: 0.85rem;
-  opacity: 0.7;
-  text-align: center;
-}
-
 /* QUOTE */
 .quote {
   margin-top: 10px;
