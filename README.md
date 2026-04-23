@@ -47,9 +47,8 @@ No installation is required to use the app. It is hosted online and can be acces
 
 ## 🔗 Live Demo & Repository
 Application can be viewed here: 
-* [Live](https://ya-ai-generator.netlify.app/)
-
-* [Repository](https://github.com/yvonnesarah/ai-generator)
+* 🌐 Live: https://ya-ai-generator.netlify.app/
+* 💻 Repository: https://github.com/yvonnesarah/ai-generator
 
 ## 🖼 Screenshot
 Before Design
