@@ -107,6 +107,36 @@ These advanced capabilities are designed to optimize performance, enhance reliab
 * Combined suggestions (AI + trending topics) ✅
 * Loading and error handling states ✅
 
+## 🧠 Challenges & Learnings
+🚧 Challenges Faced
+
+1. API Integration & Reliability
+Handling inconsistent or delayed responses from the AI API.
+Implementing fallback states for errors and failed requests.
+
+2. State Management & Async Behaviour
+Managing loading, success, and error states smoothly.
+Ensuring UI updates correctly after asynchronous API calls.
+
+3. UI/UX Enhancements
+Synchronising the typewriter animation with incoming API data.
+Maintaining a clean and responsive layout across devices.
+
+4. Data Persistence
+Implementing local storage for favourites and search history.
+Ensuring data remains consistent across sessions.
+
+5. Analytics & Visualisation
+Structuring data for Chart.js to display meaningful insights.
+Tracking user interactions such as popular topics and quote generation counts.
+
+📚 Key Learnings
+
+1. Improved understanding of working with third-party APIs.
+2. Better handling of asynchronous JavaScript patterns (Promises & async/await).
+3. Strengthened skills in creating interactive and user-focused UI components.
+4. Learned how to design lightweight analytics features for frontend applications.
+
 ## 👥 Credit
 Designed and developed by Yvonne Adedeji.
 
